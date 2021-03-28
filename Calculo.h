@@ -11,16 +11,16 @@
  * Created on March 27, 2021, 10:37 AM
  */
 
-#ifndef CALCULO_H
-#define CALCULO_H
-const int MARCA_FIN = -1;
+#ifndef MATRIZ_H
+#define MATRIZ_H
+const int MARCA_FIN = -273;
 
-void ValoresExtremosAnuales(float M[][], int &dia_mas_caluroso, int &dia_menos_caluroso,int &dia_mayor_amplitud_term);
-void ExtraeDatos(float M[][], int num_colum, float A[][]);
+void ValoresExtremosAnuales(float M[][4], int &dia_mas_caluroso, int &dia_menos_caluroso,int &dia_mayor_amplitud_term);
+void ExtraeDatos(float M[][4], int num_colum, float A[][31]);
 float MediaAjustado(float v[], int n);
 void MaxMinVector(float v[],int n, int &max, int &min);
 void MaxMinVector(float v[],int n, int &max, int &min);
-void ValoresExtremos(float A[][], int &max, int &min);
+void ValoresExtremos(float A[][31], int &max, int &min);
 
 #endif /* CALCULO_H */
 
