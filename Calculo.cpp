@@ -1,13 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+#include <iostream>
 
-//M[366][4] 0 dia 1 mes 2 temperatura max 3 temperatura minima
-const float MARCA_FIN = -1;
+using namespace std;
+
+
+const int MARCA_FIN = -273;
         
-void ValoresExtremosAnuales(float M[365][4], int &dia_mas_caluroso, int &dia_menos_caluroso,int &dia_mayor_amplitud_term){
+void ValoresExtremosAnuales(float M[][4], int &dia_mas_caluroso, int &dia_menos_caluroso,int &dia_mayor_amplitud_term){
     int indicemax = 0;
     int indicemin = 0;
     int indiceamplitud = 0;
@@ -36,7 +34,7 @@ void ValoresExtremosAnuales(float M[365][4], int &dia_mas_caluroso, int &dia_men
     dia_mayor_amplitud_term = indiceamplitud;
 }
 
-void ExtraeDatos(float M[365][4], int num_colum, float A[12][31]){
+void ExtraeDatos(float M[][4], int num_colum, float A[][31]){
     if(num_colum == 2 || num_colum == 3){
         for(int i = 0; i < 366; i++){
             for(int j = 0; j < 12; j++){
@@ -75,7 +73,7 @@ void MaxMinVector(float v[],int n, int &max, int &min){
 float MediaAjustado(float v[], int n){
     int max, min;
     float media = 0;
-    MaxMinVector(v[], max, min);
+    MaxMinVector(v, n, max, min);
     for(int i = 0; i < n; i++){
         if(i != max || i != min){
             media += v[i];
@@ -85,41 +83,43 @@ float MediaAjustado(float v[], int n){
     return media;
 }
 
-float MediaMensualAjustada(float A[12][31], int mes){
+float MediaMensualAjustada(float A[][31], int mes){
     int max, min;
     int media = 0;
     int n = 0; 
-    MaxMinVector(A[][], 31, max, min);
+    MaxMinVector(A[mes], 31, max, min);
     for(int i = 0; i < 31; i++){
         
-        if(A[i] != MARCA_FIN){
-            media += A[i];
+        if(A[mes][i] != MARCA_FIN){
+            media += A[mes][i];
             n++;
             
         }
-    media -= A[max] + A[min];
+    media -= A[mes][max] + A[mes][min];
     media /= n - 2;
-    return media;
+    
     }
+    return media;
 }
 
-void ValoresExtremos(float A[][], int &max, int &min){
-    float cont_max = A[0];
-    float cont_min = A[0];
+void ValoresExtremos(float A[][31], int mes, int &max, int &min ){
+    float cont_max = A[mes][0];
+    float cont_min = A[mes][0];
     for(int i = 1; i < 31; i++){
-        if(A[i] != MARCA_FIN){
-            if(cont_max < A[i]){
-                cont_max = A[i];
+        if(A[mes][i] != MARCA_FIN){
+            if(cont_max < A[mes][i]){
+                cont_max = A[mes][i];
                 max = i;
             }
             else
-                if(cont_min > A[i]){
-                    cont_min = A[i];
+                if(cont_min > A[mes][i]){
+                    cont_min = A[mes][i];
                     min = i;
                 }
         }
     }
 }
+
 
 
 
